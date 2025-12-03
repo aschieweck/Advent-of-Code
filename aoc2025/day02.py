@@ -3,20 +3,24 @@ import re
 import sys
 
 
-def read_file(file_name: str) -> str:
+def read_file(file_name: str) -> list[tuple[int, int]]:
+    result = []
     with open(file_name) as f:
-        return f.read().splitlines()[0]
+        content = f.read().splitlines()[0]
+        id_ranges = content.split(",")
+        for id_range in id_ranges:
+            ids = id_range.split("-")
+            id1 = int(ids[0])
+            id2 = int(ids[1])
+            result.append((id1, id2))
+    return result
 
 
-def check_ids(input: str) -> int:
+def check_ids(id_ranges: list[tuple[int, int]]) -> int:
     result = 0
 
-    id_ranges = input.split(",")
-
     for id_range in id_ranges:
-        ids = id_range.split("-")
-        id1 = int(ids[0])
-        id2 = int(ids[1])
+        id1, id2 = id_range
 
         for i in range(id1, id2 + 1):
             i_str = str(i)
@@ -27,17 +31,13 @@ def check_ids(input: str) -> int:
     return result
 
 
-def check_ids_regex(input: str) -> int:
+def check_ids_regex(id_ranges: list[tuple[int, int]]) -> int:
     result = 0
-
-    id_ranges = input.split(",")
 
     regex = re.compile(r'^(\d+)\1$')
 
     for id_range in id_ranges:
-        ids = id_range.split("-")
-        id1 = int(ids[0])
-        id2 = int(ids[1])
+        id1, id2 = id_range
 
         for i in range(id1, id2 + 1):
             i_str = str(i)
@@ -48,15 +48,11 @@ def check_ids_regex(input: str) -> int:
     return result
 
 
-def check_ids_2(input: str) -> int:
+def check_ids_2(id_ranges: list[tuple[int, int]]) -> int:
     result = 0
 
-    id_ranges = input.split(",")
-
     for id_range in id_ranges:
-        ids = id_range.split("-")
-        id1 = int(ids[0])
-        id2 = int(ids[1])
+        id1, id2 = id_range
 
         for i in range(id1, id2 + 1):
             i_str = str(i)
@@ -71,17 +67,13 @@ def check_ids_2(input: str) -> int:
     return result
 
 
-def check_ids_2_regex(input: str) -> int:
+def check_ids_2_regex(id_ranges: list[tuple[int, int]]) -> int:
     result = 0
-
-    id_ranges = input.split(",")
 
     regex = re.compile(r'^(\d+)\1+$')
 
     for id_range in id_ranges:
-        ids = id_range.split("-")
-        id1 = int(ids[0])
-        id2 = int(ids[1])
+        id1, id2 = id_range
 
         for i in range(id1, id2 + 1):
             i_str = str(i)
