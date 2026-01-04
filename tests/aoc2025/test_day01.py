@@ -1,3 +1,8 @@
+import sys
+import os
+print(f"\nDEBUG: CWD is {os.getcwd()}")
+print(f"DEBUG: PYTHONPATH is {sys.path}")
+
 import unittest
 from pathlib import Path
 
